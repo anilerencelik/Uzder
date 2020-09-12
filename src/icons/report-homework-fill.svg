@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 496 496" style="enable-background:new 0 0 496 496;" xml:space="preserve">
+<path style="fill:#92E0C0;" d="M40,56H8v400h176l0,0c0,17.672,14.328,32,32,32l0,0c17.672,0,32-14.328,32-32l0,0h176v-96v-64V56h-32
+	H40z"/>
+<rect x="40" y="8" style="fill:#ECECEC;" width="176" height="416"/>
+<rect x="216" y="8" style="fill:#AFB8C9;" width="176" height="416"/>
+<path style="fill:#8C95A4;" d="M296,296l-40.848,20.424C250.768,318.616,248,323.096,248,328l0,0c0,4.904,2.768,9.384,7.152,11.576
+	L296,360h160c17.672,0,32-14.328,32-32l0,0c0-17.672-14.328-32-32-32H296z"/>
+<circle style="fill:#FCD770;" cx="128" cy="96" r="56"/>
+<rect x="248" y="40" style="fill:#FB5968;" width="112" height="80"/>
+<rect x="296" y="296" style="fill:#FFC729;" width="144" height="32"/>
+<rect x="296" y="328" style="fill:#FCD770;" width="144" height="32"/>
+<rect x="40" y="408" style="fill:#B6C1CE;" width="176" height="16"/>
+<rect x="216" y="408" style="fill:#8C95A4;" width="176" height="16"/>
+<path d="M456,288h-24V48h-32V0H32v48H0v416h176.808c3.712,18.232,19.88,32,39.192,32s35.48-13.768,39.192-32H432v-96h24
+	c22.056,0,40-17.944,40-40S478.056,288,456,288z M432,320h-32v16h32v16H304v-16h80v-16h-80v-16h128V320z M288,347.056
+	l-29.264-14.632C257.048,331.576,256,329.88,256,328s1.048-3.576,2.736-4.424L288,308.944V347.056z M400,80V64h16v224h-16V96h-16
+	v192h-89.888l-42.536,21.264C244.44,312.84,240,320.016,240,328s4.44,15.16,11.576,18.736L294.112,368H384v48H224V16h160v64H400z
+	 M48,16h160v400H48V16z M416,448H240v8c0,13.232-10.768,24-24,24s-24-10.768-24-24v-8H16V64h16v368h368v-64h16V448z M456,352h-8v-48
+	h8c13.232,0,24,10.768,24,24S469.232,352,456,352z"/>
+<rect x="240" y="384" width="128" height="16"/>
+<path d="M128,160c35.288,0,64-28.712,64-64s-28.712-64-64-64S64,60.712,64,96S92.712,160,128,160z M128,48c26.472,0,48,21.528,48,48
+	s-21.528,48-48,48s-48-21.528-48-48S101.528,48,128,48z"/>
+<rect x="96" y="176" width="96" height="16"/>
+<rect x="64" y="208" width="128" height="16"/>
+<rect x="64" y="240" width="128" height="16"/>
+<rect x="64" y="272" width="128" height="16"/>
+<rect x="240" y="144" width="128" height="16"/>
+<rect x="240" y="176" width="128" height="16"/>
+<rect x="240" y="208" width="128" height="16"/>
+<rect x="240" y="240" width="72" height="16"/>
+<rect x="64" y="304" width="128" height="16"/>
+<rect x="112" y="336" width="80" height="16"/>
+<rect x="64" y="336" width="32" height="16"/>
+<rect x="64" y="368" width="128" height="16"/>
+<path d="M240,128h128V32H240V128z M256,48h96v64h-96V48z"/>
+<rect x="64" y="176" width="16" height="16"/>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>

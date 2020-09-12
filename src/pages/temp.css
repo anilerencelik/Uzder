@@ -1,0 +1,9 @@
+.outer{
+    display: flex!important;
+}
+.xd{
+    margin-left: 45px;
+    margin-right: 2vh;
+    width: 30vh;
+    border: 2px solid black;
+}
