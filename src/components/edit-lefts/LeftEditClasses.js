@@ -26,11 +26,11 @@ const LeftEditClasses = ()  => {
     return (
         <div>
             <div className="form-group">
-                <label htmlFor="usr">Sınıfın Adı:</label>
-                <input type="text" className="form-control" id="usr"/>
+                <label htmlFor="usrName">Sınıfın Adı:</label>
+                <input type="text" className="form-control" id="usrName"/>
                 <br/>
-                <label>Sınıfın Alması Gereken Dersleri Seçin.</label>
-                <Table data={lessons} columns={columns} scrollHeight="25vh"/><br/>
+                <label htmlFor="usrLessons">Sınıfın Alması Gereken Dersleri Seçin.</label>
+                <Table data={lessons} columns={columns} scrollHeight="25vh" id="usrLessons"/><br/>
                 <div className="d-flex justify-content-center">
                     <button type="button" className="btn btn-secondary">Sınıfı Ekle</button>
                 </div>

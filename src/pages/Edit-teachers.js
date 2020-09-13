@@ -4,12 +4,12 @@ import LeftEditTeacher from '../components/edit-lefts/LeftEditTeachers';
 
 const EditTeachers = () => {
     return (
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4 ">
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-md-4 ">
                     <LeftEditTeacher/>
                 </div>
-                <div class="col auto">
+                <div className="col auto">
                     <h1>Patates</h1>
                 </div>
             </div>

@@ -4,12 +4,12 @@ import LeftEditLessons from '../components/edit-lefts/LeftEditLessons';
 
 const EditLessons = () => {
     return (
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4 ">
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-md-4 ">
                     <LeftEditLessons/>
                 </div>
-                <div class="col auto">
+                <div className="col auto">
                     this is lg column
                 </div>
             </div>

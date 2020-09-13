@@ -1,36 +1,51 @@
-import React from 'react'
+import React, {useState, useEffect}  from 'react'
 
 const LeftEditTeachers = ()  => {
+
+    const [lessons, setLessons] = useState([])
+
+    useEffect( () => {
+        getLessons()
+    },[])
+
+    const getLessons = async () => {
+        const response = await fetch("http://localhost:3000/getLessons")
+        const temp = await response.json();
+        setLessons(temp.data)
+    }
+
+    const selectBox = lessons.map(lesson => {
+        return (
+          <option key={lesson.LESSONNAME}>{lesson.LESSONNAME}</option>
+        )
+    })
+
     return (
         <div>
-            <div class="form-group">
-                <label for="usr">Öğretmenin Adı:</label>
-                <input type="text" class="form-control" id="usr"/><br/>                
-                <label for="usr">Öğretmenin Branşı:</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option value="bir">1</option>
-                    <option value="iki">2</option>
-                    <option value="üç">3</option>
-                    <option value="dört">4</option>
-                    <option value="beş">5</option>
+            <div className="form-group">
+                <label htmlFor="usrName">Öğretmenin Adı:</label>
+                <input type="text" className="form-control" id="usrName"/><br/>                
+                <label htmlFor="usrLesson">Öğretmenin Branşı:</label>
+                <select className="form-control" id="usrLesson">
+                    {selectBox}
                 </select><br/>
-                <label for="usr">Öğretmenin Telefon Numarası:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupPrepend3">+90</span>
+                <label htmlFor="usrTel">Öğretmenin Telefon Numarası:</label>
+                <div className="input-group">
+                    <div className="input-group-prepend">
+                    <span className="input-group-text" id="inputGroupPrepend3">+90</span>
                     </div>
-                    <input type="text" class="form-control" id="validationServerUsername" placeholder="555-555-5555" aria-describedby="inputGroupPrepend3"/>
+                    <input type="text" className="form-control" id="usrTel" placeholder="555-555-5555" aria-describedby="inputGroupPrepend3"/>
                 </div><br/>
-                <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-secondary">Öğretmeni Ekle</button>
+                <div className="d-flex justify-content-center">
+                    <button type="button" className="btn btn-secondary">Öğretmeni Ekle</button>
                 </div>
             </div>
             <br/><br/>
-            <div class="d-flex justify-content-center">
-                <label class="textcenter">Kaldırmak istenilen öğretmenleri işaretleyin.</label>
+            <div className="d-flex justify-content-center">
+                <label className="textcenter">Kaldırmak istenilen öğretmenleri işaretleyin.</label>
             </div>
-            <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-danger">Seçilenleri Kaldır</button>
+            <div className="d-flex justify-content-center">
+                <button type="button" className="btn btn-danger">Seçilenleri Kaldır</button>
             </div>
             <br/><br/>
         </div>

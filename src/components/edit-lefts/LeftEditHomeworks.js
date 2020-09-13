@@ -2,18 +2,28 @@ import React, {useState, useEffect} from 'react'
 import Table from '../Table'
 
 const LeftEditHomeworks = ()  => {
-    
+    const [teachers, setTeachers] = useState([])
     const [classes, setClasses] = useState([])
 
     useEffect( () => {
-        getClasses()
+        getSelections()
     },[])
 
-    const getClasses = async () => {
-        const response = await fetch("http://localhost:3000/getClasses")
-        const x = await response.json();
+    const getSelections = async () => {
+        const responseTeachers = await fetch("http://localhost:3000/getTeachers")
+        const responseClasses = await fetch("http://localhost:3000/getClasses")
+        const temp = await responseTeachers.json();
+        setTeachers(temp.data)
+        const x = await responseClasses.json();
         setClasses(x.data)
     }
+
+    const selectBox = teachers.map(teacher => {
+        return (
+          <option key={teacher.TEACHERNAME}>{teacher.TEACHERNAME}</option>
+        )
+    })
+
 
     const columns = [
         {
@@ -26,24 +36,20 @@ const LeftEditHomeworks = ()  => {
     return (
         <div>
             <div className="form-group">
-                <label htmlFor="usr">Ödevin Adı:</label>
-                <input type="text" className="form-control" id="usr"/><br/>
-                <label>Ödevin Verileceği Sınıfları Seçin.</label>
-                <Table data={classes} columns={columns} scrollHeight="25vh"/><br/>
-                <label for="usr">Ödevi Veren Öğretmen:</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option value="bir">1</option>
-                    <option value="iki">2</option>
-                    <option value="üç">3</option>
-                    <option value="dört">4</option>
-                    <option value="beş">5</option>
+                <label htmlFor="usrName">Ödevin Adı:</label>
+                <input type="text" className="form-control" id="usrName"/><br/>
+                <label htmlFor="usrClass">Ödevin Verileceği Sınıfları Seçin.</label>
+                <Table data={classes} columns={columns} scrollHeight="25vh" id="usrClass"/><br/>
+                <label htmlFor="usrTeacher">Ödevi Veren Öğretmen:</label>
+                <select className="form-control" id="usrTeacher">
+                    {selectBox}
                 </select><br/>
-                <div class="row ">
-                    <div class="col">
-                        <label for="usr">Ödevin Kontrol Günü:</label>
+                <div className="row ">
+                    <div className="col">
+                        <label htmlFor="usrDate">Ödevin Kontrol Günü:</label>
                     </div>
-                    <div class="col">
-                        <input type="date" id="addDate"/><br/>
+                    <div className="col">
+                        <input type="date" id="usrDate"/><br/>
                     </div>
                 </div><br/>
                 <div className="d-flex justify-content-center">

@@ -4,19 +4,19 @@ const LeftEditLessons = ()  => {
 
     return (
         <div>
-            <div class="form-group">
-                <label for="usr">Dersin Adı:</label>
-                <input type="text" class="form-control" id="usr"/><br/>
-                <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-secondary">Dersi Ekle</button>
+            <div className="form-group">
+                <label htmlFor="usrName">Dersin Adı:</label>
+                <input type="text" className="form-control" id="usrName"/><br/>
+                <div className="d-flex justify-content-center">
+                    <button type="button" className="btn btn-secondary">Dersi Ekle</button>
                 </div>
                 <br/><br/>   
             </div>
-            <div class="d-flex justify-content-center">
-                <label class="textcenter">Kaldırmak istenilen dersleri işaretleyin.</label>
+            <div className="d-flex justify-content-center">
+                <label className="textcenter">Kaldırmak istenilen dersleri işaretleyin.</label>
             </div>
-            <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-danger">Seçilenleri Kaldır</button>
+            <div className="d-flex justify-content-center">
+                <button type="button" className="btn btn-danger">Seçilenleri Kaldır</button>
             </div>
             <br/><br/>
         </div>
