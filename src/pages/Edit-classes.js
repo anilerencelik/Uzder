@@ -13,7 +13,8 @@ const EditClasses = () => {
                     this is lg column
                 </div>
             </div>
-        </div>)
+        </div>
+    )
 }
 
 export default EditClasses;

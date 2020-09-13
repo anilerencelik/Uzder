@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom';
 import './style/index.css';
 import * as serviceWorker from './serviceWorker';
 import {Switch, Route, BrowserRouter} from 'react-router-dom'
-//import EditClass from './pages/Edit-classes';
 import EditEtude from './pages/Edit-etudes';
-import EditHomework from './pages/Edit-homeworks';
 import EditStudent from './pages/Edit-students';
 import EditTeacher from './pages/Edit-teachers';
 import Panel from './pages/Panel';
@@ -21,6 +19,7 @@ import UpdateHomeworkWeek from './pages/Update-week-homeworks';
 import Navbar from './components/Navbar';
 import EditLessons from './pages/Edit-lessons';
 import EditClasses from './pages/Edit-classes';
+import EditHomework from './pages/Edit-homeworks';
 
 const Routes = () => {
   return(

@@ -11,8 +11,8 @@ const LeftEditClasses = ()  => {
 
     const getLessons = async () => {
         const response = await fetch("http://localhost:3000/getLessons")
-        const x = await response.json();
-        setLessons(x.data)
+        const temp = await response.json();
+        setLessons(temp.data)
     }
 
     const columns = [
@@ -28,13 +28,14 @@ const LeftEditClasses = ()  => {
             <div className="form-group">
                 <label htmlFor="usr">Sınıfın Adı:</label>
                 <input type="text" className="form-control" id="usr"/>
+                <br/>
+                <label>Sınıfın Alması Gereken Dersleri Seçin.</label>
+                <Table data={lessons} columns={columns} scrollHeight="25vh"/><br/>
+                <div className="d-flex justify-content-center">
+                    <button type="button" className="btn btn-secondary">Sınıfı Ekle</button>
+                </div>
             </div>
-            <label>Sınıfın Alması Gereken Dersleri Seçin.</label>
-            <Table data={lessons} columns={columns} scrollHeight="25vh"/><br/>
-            <div className="d-flex justify-content-center">
-                <button type="button" className="btn btn-secondary">Sınıfı Ekle</button>
-            </div>
-            <br/><br/>
+            <br/>
             <div className="d-flex justify-content-center">
                 <label className="textcenter">Kaldırmak istenilen sınıfları işaretleyin.</label>
             </div><br/>

@@ -1,15 +1,18 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import LeftEditEtudes from '../components/edit-lefts/LeftEditEtudes';
 
 const EditEtudes = () => {
-    let location = useLocation()
-    console.log(location);
-    return(
-    <div>
-        {location.pathname === "/edit-etudes"
-         ? <h3>Patates</h3> : <h3>Börek</h3>}
-        <h1>This Page is EditEtude</h1>
-    </div>)
+    return (
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 ">
+                    <LeftEditEtudes/>
+                </div>
+                <div class="col auto">
+                    this is lg column
+                </div>
+            </div>
+        </div>)
 }
 
 export default EditEtudes;

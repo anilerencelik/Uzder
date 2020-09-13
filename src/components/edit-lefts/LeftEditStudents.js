@@ -1,12 +1,12 @@
 import React from 'react'
 
-const LeftEditTeachers = ()  => {
+const LeftEditStudents = ()  => {
     return (
         <div>
             <div class="form-group">
-                <label for="usr">Öğretmenin Adı:</label>
+                <label for="usr">Öğrencinin Adı:</label>
                 <input type="text" class="form-control" id="usr"/><br/>                
-                <label for="usr">Öğretmenin Branşı:</label>
+                <label for="usr">Öğrencinin Sınıfı:</label>
                 <select class="form-control" id="exampleFormControlSelect1">
                     <option value="bir">1</option>
                     <option value="iki">2</option>
@@ -14,7 +14,7 @@ const LeftEditTeachers = ()  => {
                     <option value="dört">4</option>
                     <option value="beş">5</option>
                 </select><br/>
-                <label for="usr">Öğretmenin Telefon Numarası:</label>
+                <label for="usr">Velinin Telefon Numarası:</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupPrepend3">+90</span>
@@ -22,12 +22,12 @@ const LeftEditTeachers = ()  => {
                     <input type="text" class="form-control" id="validationServerUsername" placeholder="555-555-5555" aria-describedby="inputGroupPrepend3"/>
                 </div><br/>
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-secondary">Öğretmeni Ekle</button>
+                    <button type="button" class="btn btn-secondary">Öğrenci Ekle</button>
                 </div>
             </div>
             <br/><br/>
             <div class="d-flex justify-content-center">
-                <label class="textcenter">Kaldırmak istenilen öğretmenleri işaretleyin.</label>
+                <label class="textcenter">Kaldırmak istenilen öğrencileri işaretleyin.</label>
             </div>
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-danger">Seçilenleri Kaldır</button>
@@ -37,4 +37,4 @@ const LeftEditTeachers = ()  => {
     )
 }
 
-export default LeftEditTeachers
+export default LeftEditStudents
