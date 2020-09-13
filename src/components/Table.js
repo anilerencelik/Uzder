@@ -6,7 +6,7 @@ const handleChange = (state) => {
   console.log('Selected Rows: ', state.selectedRows);
 };
 
-const data = [  { id: 1, title: 'Conan the Barbarian', year: '1982' }, 
+const dataDef = [  { id: 1, title: 'Conan the Barbarian', year: '1982' }, 
                 {id: 2, title: 'Conan the Barbarian', year: '1982' },
                 {id: 3, title: 'Conan the Barbarian', year: '1982' },
                 {id: 4, title: 'Conan the Barbarian', year: '1982' },
@@ -25,7 +25,7 @@ const data = [  { id: 1, title: 'Conan the Barbarian', year: '1982' },
                 {id: 34, title: 'Conan the Barbarian', year: '1982' }
 ];
 
-const columns = [
+const columnsDef = [
   {
     name: 'Title',
     selector: 'title',
@@ -39,7 +39,7 @@ const columns = [
 ];
 
 
-const Panel = ({scrollHeight="70vh"}) => {
+const Panel = ({scrollHeight="70vh", data=dataDef, columns=columnsDef}) => {
     return(
         <DataTable 
         columns={columns}

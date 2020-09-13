@@ -1,5 +1,5 @@
 import React from 'react';
-import LeftEditLessons from '../components/edit-lessons/LeftEditLessons';
+import LeftEditLessons from '../components/edit-lefts/LeftEditLessons';
 
 
 const EditLessons = () => {

@@ -1,15 +1,15 @@
 import React from 'react';
-import LeftEditClasses from '../components/edit-lessons/LeftEditClasses';
+import LeftEditClasses from '../components/edit-lefts/LeftEditClasses';
 
 
 const EditClasses = () => {
     return (
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4 ">
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-md-4 ">
                     <LeftEditClasses/>
                 </div>
-                <div class="col auto">
+                <div className="col auto">
                     this is lg column
                 </div>
             </div>

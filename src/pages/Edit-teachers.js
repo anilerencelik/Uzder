@@ -1,6 +1,5 @@
 import React from 'react';
-import LeftEditTeacher from '../components/edit-lessons/LeftEditTeachers';
-import Sql from '../components/Sql';
+import LeftEditTeacher from '../components/edit-lefts/LeftEditTeachers';
 
 
 const EditTeachers = () => {
@@ -11,7 +10,7 @@ const EditTeachers = () => {
                     <LeftEditTeacher/>
                 </div>
                 <div class="col auto">
-                    <Sql/>
+                    <h1>Patates</h1>
                 </div>
             </div>
         </div>)

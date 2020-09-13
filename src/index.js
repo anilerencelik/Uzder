@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style/index.css';
-import Header from './components/Header';
 import * as serviceWorker from './serviceWorker';
 import {Switch, Route, BrowserRouter} from 'react-router-dom'
-import EditClass from './pages/Edit-classes';
+//import EditClass from './pages/Edit-classes';
 import EditEtude from './pages/Edit-etudes';
 import EditHomework from './pages/Edit-homeworks';
 import EditStudent from './pages/Edit-students';
@@ -26,7 +25,7 @@ import EditClasses from './pages/Edit-classes';
 const Routes = () => {
   return(
     <Switch>
-      <Route path="/" exact component={Header}/>
+      <Route path="/" exact component={Panel}/>
       <Route path="/panel" exact component={Panel}/>
       <Route path="/edit-lessons" exact component={EditLessons}/>
       <Route path="/edit-students" exact component={EditStudent}/>
