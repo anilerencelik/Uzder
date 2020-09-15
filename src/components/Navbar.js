@@ -2,7 +2,6 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import './Navbar.css'
 
-
 const Navbar = () => {
     let location = useLocation().pathname;
     return (
@@ -23,7 +22,7 @@ const Navbar = () => {
                         location === "/edit-etudes" ||
                         location === "/edit-homeworks" ||
                         location === "/edit-classes") ? "nav-item dropdown active" : "nav-item dropdown"}>
-                        <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Ekleme/Çıkarma Menüsü</a>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a className={location === "/edit-lessons" ? "dropdown-item active" : "dropdown-item"} href="/edit-lessons">Ders</a>
@@ -38,7 +37,7 @@ const Navbar = () => {
                         location === "/report-teachers" ||
                         location === "/report-homeworks" ||
                         location === "/report-classes") ? "nav-item dropdown active" : "nav-item dropdown"}>
-                        <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Rapor Menüsü</a>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a className={location === "/report-students" ? "dropdown-item active" : "dropdown-item"} href="/report-students">Öğrenci</a>

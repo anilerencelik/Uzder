@@ -39,7 +39,7 @@ const columnsDef = [
 ];
 
 
-const Panel = ({scrollHeight="70vh", data=dataDef, columns=columnsDef}) => {
+const Table = ({scrollHeight="70vh", data=dataDef, columns=columnsDef}) => {
     return(
         <DataTable 
         columns={columns}
@@ -56,4 +56,4 @@ const Panel = ({scrollHeight="70vh", data=dataDef, columns=columnsDef}) => {
         )
 }
 
-export default Panel;
+export default Table;

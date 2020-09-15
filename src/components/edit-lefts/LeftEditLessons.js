@@ -8,7 +8,7 @@ const LeftEditLessons = ()  => {
                 <label htmlFor="usrName">Dersin Adı:</label>
                 <input type="text" className="form-control" id="usrName"/><br/>
                 <div className="d-flex justify-content-center">
-                    <button type="button" className="btn btn-secondary">Dersi Ekle</button>
+                    <button type="submit" className="btn btn-secondary">Dersi Ekle</button>
                 </div>
                 <br/><br/>   
             </div>
