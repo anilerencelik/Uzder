@@ -1,29 +1,10 @@
-import React from 'react';
+import React, {useState, useCallback} from 'react';
 import DataTable from 'react-data-table-component';
 
 const handleChange = (state) => {
-  // You can use setState or dispatch with something like Redux so we can use the retrieved data
-  console.log('Selected Rows: ', state.selectedRows);
-};
+  console.log('Selected Rows:');
 
-const dataDef = [  { id: 1, title: 'Conan the Barbarian', year: '1982' }, 
-                {id: 2, title: 'Conan the Barbarian', year: '1982' },
-                {id: 3, title: 'Conan the Barbarian', year: '1982' },
-                {id: 4, title: 'Conan the Barbarian', year: '1982' },
-                {id: 5, title: 'Conan the Barbarian', year: '1982' },
-                { id: 11, title: 'Conan the Barbarian', year: '1982' }, 
-                {id: 12, title: 'Conan the Barbarian', year: '1982' },
-                {id: 13, title: 'Conan the Barbarian', year: '1982' },
-                {id: 14, title: 'Conan the Barbarian', year: '1982' },
-                { id: 21, title: 'Conan the Barbarian', year: '1982' }, 
-                {id: 22, title: 'Conan the Barbarian', year: '1982' },
-                {id: 23, title: 'Conan the Barbarian', year: '1982' },
-                {id: 24, title: 'Conan the Barbarian', year: '1982' },
-                { id: 31, title: 'Conan the Barbarian', year: '1982' }, 
-                {id: 32, title: 'Conan the Barbarian', year: '1982' },
-                {id: 33, title: 'Conan the Barbarian', year: '1982' },
-                {id: 34, title: 'Conan the Barbarian', year: '1982' }
-];
+};
 
 const columnsDef = [
   {
@@ -39,11 +20,22 @@ const columnsDef = [
 ];
 
 
-const Table = ({scrollHeight="70vh", data=dataDef, columns=columnsDef}) => {
-    return(
+const Table = ({scrollHeight="75vh", dataparam=[], columns=columnsDef}) => {
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [toggleCleared, setToggleCleared] = useState(false);
+  const [data, setData] = useState(dataparam);
+
+  const handleRowSelected = useCallback(state => {
+    setSelectedRows(state.selectedRows);
+    console.log(selectedRows)
+  }, []);
+
+
+
+  return(
         <DataTable 
         columns={columns}
-        data={data}
+        data={dataparam}
         fixedHeader={true}
         noHeader={true}
         highlightOnHover={true}
@@ -52,6 +44,7 @@ const Table = ({scrollHeight="70vh", data=dataDef, columns=columnsDef}) => {
         Clicked 
         Selected={handleChange}
         selectableRowsHighlight={true}
+        
         />
         )
 }

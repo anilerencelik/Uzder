@@ -1,31 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 import './style/index.css';
 import * as serviceWorker from './serviceWorker';
 import {Switch, Route, BrowserRouter} from 'react-router-dom'
-import EditEtude from './pages/Edit-etudes';
-import EditStudent from './pages/Edit-students';
-import EditTeacher from './pages/Edit-teachers';
-import Panel from './pages/Panel';
-import ReportClass from './pages/Report-classes';
-import ReportHomework from './pages/Report-homeworks';
-import ReportStuent from './pages/Report-students';
-import ReportTeacher from './pages/Report-teachers';
+import EditEtude from './views/Edit-etudes';
+import EditStudent from './views/Edit-students';
+import EditTeacher from './views/Edit-teachers';
+import Panel from './views/Panel';
+import ReportClass from './views/Report-classes';
+import ReportHomework from './views/Report-homeworks';
+import ReportStuent from './views/Report-students';
+import ReportTeacher from './views/Report-teachers';
 import UpdateEtude from './components/Table';
-import UpdateEtudeWeek from './pages/Update-week-etudes';
+import UpdateEtudeWeek from './views/Update-week-etudes';
 import UpdateHomework from './components/Table';
-import UpdateHomeworkWeek from './pages/Update-week-homeworks';
+import UpdateHomeworkWeek from './views/Update-week-homeworks';
 
 import Navbar from './components/Navbar';
-import EditLessons from './pages/Edit-lessons';
-import EditClasses from './pages/Edit-classes';
-import EditHomework from './pages/Edit-homeworks';
+import EditLessons from './views/Edit-lessons';
+import EditClasses from './views/Edit-classes';
+import EditHomework from './views/Edit-homeworks';
 
 const Routes = () => {
   return(
     <Switch>
-      <Route path="/" exact component={Panel}/>
-      <Route path="/panel" exact component={Panel}/>
       <Route path="/edit-lessons" exact component={EditLessons}/>
       <Route path="/edit-students" exact component={EditStudent}/>
       <Route path="/edit-teachers" exact component={EditTeacher}/>
@@ -41,23 +39,12 @@ const Routes = () => {
       <Route path="/update-etude-week" exact component={UpdateEtudeWeek}/>
       <Route path="/update-homeworks" exact component={UpdateHomework}/>
       <Route path="/update-homework-week" exact component={UpdateHomeworkWeek}/>
+      <Route path="/" component={Panel}/>
     </Switch>
   ) 
 }
 
-/*
-ReactDOM.render(
-  <BrowserRouter>
-  <React.StrictMode>
-        <Header/>
-        <Routes/>
-  </React.StrictMode>
-  </BrowserRouter>,
-  document.getElementById('root')
-);
-*/
-
-ReactDOM.render(
+render(
   <BrowserRouter>
     <Navbar/>
     <Routes/>
