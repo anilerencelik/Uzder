@@ -47,7 +47,7 @@ const EditHomeworks = () => {
     const [teachers, setTeachers] = useState([])
     const [classes, setClasses] = useState([])
     const [homeworks, setHomeworks] = useState([])
-    const [addTeacher, setAddTeacher] = useState(1)
+    const [addTeacher, setAddTeacher] = useState()
     const [hwName, setHWName] = useState([])
     const [date, setDate] = useState('')
 
@@ -137,7 +137,8 @@ const EditHomeworks = () => {
                             clearSelectedRows={toggleClearedL}
                         /><br/>
                         <label htmlFor="usrTeacher">Ödevi Veren Öğretmen:</label>
-                        <select className="form-control" id="usrTeacher" onChange={(e) => setAddTeacher(parseInt(e.target.value))}>
+                        <select className="form-control" id="usrTeacher" value={addTeacher} onChange={(e) => setAddTeacher(parseInt(e.target.value))}>
+                        <option selected value="">Öğretmeni Seçiniz...</option>
                             {selectBox}
                         </select><br/>
                         <div className="row ">

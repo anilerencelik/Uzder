@@ -30,7 +30,7 @@ const EditStudents = () => {
     const [students, setStudents] = useState([])
     const [classes, setClasses] = useState([])
     const [addName, setAddName] = useState([])
-    const [addClass, setAddClass] = useState(1)
+    const [addClass, setAddClass] = useState()
     const [addNo, setAddNo] = useState([])
     const [addTel, setAddTel] = useState([])
     const updateName = e => {
@@ -60,7 +60,7 @@ const EditStudents = () => {
         const tempStudents  = await responseStudents.json();
         setClasses(tempClasses.data)
         setStudents(tempStudents.data)
-    }
+    }    
     const selectBox = classes.map(data => {
         return (
           <option value={data.CLASSID} key={data.CLASSID}>{data.CLASSNAME}</option>
@@ -87,6 +87,7 @@ const EditStudents = () => {
             selector: 'PARENTTELNO',
             sortable: true,
         }]
+
     return(
         <div className="container-fluid">
             <div className="row">
@@ -95,7 +96,8 @@ const EditStudents = () => {
                         <label htmlFor="usrName">Öğrencinin Adı:</label>
                         <input type="text" className="form-control" id="usrName" onChange={updateName} value={addName}/><br/>                
                         <label htmlFor="usrClass">Öğrencinin Sınıfı:</label>
-                        <select className="form-control" id="usrClass" onChange={(e) => setAddClass(e.target.value)}>
+                        <select className="form-control" id="usrClass" value={addClass} onChange={(e) => setAddClass(e.target.value)}>
+                        <option selected value="">Sınıfı işaretleyin...</option>
                             {selectBox}
                         </select><br/>
                         <label htmlFor="usrNo">Öğrenci No:</label>

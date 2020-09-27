@@ -38,8 +38,8 @@ const EditEtudes = () => {
 
 
 
-    const [addTeacher, setAddTeacher] = useState(1)
-    const [addStudent, setAddStudent] = useState(1)
+    const [addTeacher, setAddTeacher] = useState()
+    const [addStudent, setAddStudent] = useState()
     const [time, setTime] = useState('')
     const updateTime = e => {
         setTime(e.target.value)
@@ -118,11 +118,13 @@ const EditEtudes = () => {
                 <div className="col-md-4 ">
                     <form className="form-group" onSubmit={send}>
                         <label htmlFor="usrName">Birebiri Veren Öğretmen:</label>
-                        <select className="form-control" id="usrName" onChange={(e) => setAddTeacher(e.target.value)}>
+                        <select className="form-control" id="usrName" value={addTeacher} onChange={(e) => setAddTeacher(e.target.value)}>
+                        <option selected value="">Öğretmeni Seçiniz...</option>
                             {selectBoxTeachers}
                         </select><br/>
                         <label htmlFor="usrStudent">Birebiri Alan Öğrenci:</label>
-                        <select className="form-control" id="usrStudent" onChange={(e) => setAddStudent(e.target.value)}>
+                        <select className="form-control" id="usrStudent" value={addStudent} onChange={(e) => setAddStudent(e.target.value)}>
+                        <option selected value="">Öğrenciyi Seçiniz...</option>
                             {selectBoxStudent}
                         </select><br/>
                         <div className="row ">

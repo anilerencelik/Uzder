@@ -11,15 +11,12 @@ import ReportClass from './views/Report-classes';
 import ReportHomework from './views/Report-homeworks';
 import ReportStuent from './views/Report-students';
 import ReportTeacher from './views/Report-teachers';
-import UpdateEtude from './components/Table';
-import UpdateEtudeWeek from './views/Update-week-etudes';
-import UpdateHomework from './components/Table';
-import UpdateHomeworkWeek from './views/Update-week-homeworks';
-
 import Navbar from './components/Navbar';
 import EditLessons from './views/Edit-lessons';
 import EditClasses from './views/Edit-classes';
 import EditHomework from './views/Edit-homeworks';
+import UpdateHomework from './views/Update-homeworks';
+import UpdateEtude from './views/Update-etudes';
 
 const Routes = () => {
   return(
@@ -36,9 +33,7 @@ const Routes = () => {
       <Route path="/report-classes" exact component={ReportClass}/>
       <Route path="/report-homeworks" exact component={ReportHomework}/>
       <Route path="/update-etudes" exact component={UpdateEtude}/>
-      <Route path="/update-etude-week" exact component={UpdateEtudeWeek}/>
       <Route path="/update-homeworks" exact component={UpdateHomework}/>
-      <Route path="/update-homework-week" exact component={UpdateHomeworkWeek}/>
       <Route path="/" component={Panel}/>
     </Switch>
   ) 

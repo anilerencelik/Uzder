@@ -29,7 +29,7 @@ const EditTeachers = () => {
     const [teachers, setTeachers] = useState([])
     const [lessons, setLessons] = useState([])
     const [addName, setAddName] = useState([])
-    const [addBranch, setAddBranch] = useState(1)
+    const [addBranch, setAddBranch] = useState()
     const [addTel, setAddTel] = useState([])
     const [debug, setDebug] = useState([])
     const updateName = e => {
@@ -94,7 +94,8 @@ const EditTeachers = () => {
                         <label htmlFor="usrName">Öğretmenin Adı:</label>
                         <input type="text" className="form-control" id="usrName" onChange={updateName} value={addName}/><br/>                
                         <label htmlFor="usrLesson">Öğretmenin Branşı:</label>
-                        <select className="form-control" id="usrLesson" onChange={(e) => setAddBranch(e.target.value)}>
+                        <select className="form-control" id="usrLesson" value={addBranch} onChange={(e) => setAddBranch(e.target.value)}>
+                        <option selected value="">Öğretmen Branşını Seçiniz...</option>
                             {selectBox}
                         </select><br/>
                         <label htmlFor="usrTel">Öğretmenin Telefon Numarası:</label>
