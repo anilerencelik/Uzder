@@ -1,10 +1,8 @@
 import React, {useState, useCallback} from 'react';
 import DataTable from 'react-data-table-component';
 
-const handleChange = (state) => {
-  console.log('Selected Rows:');
+const dataDef = [{ id: 1, title: 'Conan the Barbarian', summary: 'Orphaned boy Conan is enslaved after his village is destroyed...',  year: '1982' }];
 
-};
 
 const columnsDef = [
   {
@@ -20,31 +18,19 @@ const columnsDef = [
 ];
 
 
-const Table = ({scrollHeight="75vh", dataparam=[], columns=columnsDef}) => {
-  const [selectedRows, setSelectedRows] = useState([]);
-  const [toggleCleared, setToggleCleared] = useState(false);
-  const [data, setData] = useState(dataparam);
-
-  const handleRowSelected = useCallback(state => {
-    setSelectedRows(state.selectedRows);
-    console.log(selectedRows)
-  }, []);
+const Table = ({scrollHeight="25vh", dataparam=dataDef, columns=columnsDef, noTableHead=true, fixedHeader=true}) => {
 
 
 
   return(
         <DataTable 
-        columns={columns}
-        data={dataparam}
-        fixedHeader={true}
-        noHeader={true}
-        highlightOnHover={true}
-        fixedHeaderScrollHeight={scrollHeight}
-        selectableRows
-        Clicked 
-        Selected={handleChange}
-        selectableRowsHighlight={true}
-        
+          columns={columns}
+          data={dataparam}
+          fixedHeader={fixedHeader}
+          noHeader={true}
+          noTableHead={noTableHead}
+          highlightOnHover={true}
+          fixedHeaderScrollHeight={scrollHeight}
         />
         )
 }
