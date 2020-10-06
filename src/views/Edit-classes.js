@@ -4,6 +4,7 @@ import DataTable from 'react-data-table-component';
 const backend = "http://localhost:2000"
 
 const EditClasses = () => {
+    const token = localStorage.getItem('token')
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleCleared, setToggleCleared] = useState(false);
@@ -25,9 +26,9 @@ const EditClasses = () => {
     }, [data, selectedRows, toggleCleared]);
 
     const del = async (id) => {
-        const answer = await fetch(`${backend}/deleteClass?id=${id}`)
-        //const answer2 = await fetch(`${backend}/deleteClass2Lesson?id=${id}`)
-        }
+        const answer = await fetch(`${backend}/deleteClass?token=${token}&id=${id}`)
+        console.log(answer)
+    }
 
 
 
@@ -53,8 +54,8 @@ const EditClasses = () => {
     },[])
 
     const getSelections = async () => {
-        const responseLesson = await fetch(`${backend}/getLessons`)
-        const responseClass = await fetch(`${backend}/getClasses`)
+        const responseLesson = await fetch(`${backend}/getLessons?token=${token}`)
+        const responseClass = await fetch(`${backend}/getClasses?token=${token}`)
         const tempLesson = await responseLesson.json();
         const tempClass = await responseClass.json();
         setLessons(tempLesson.data)
@@ -79,12 +80,12 @@ const EditClasses = () => {
     ];
 
     const send = async () => {
-        const answer = await fetch(`${backend}/addClass?name=${addClassName}`)
-        const responseClassID = await fetch(`${backend}/getLastClassID`)
+        const answer = await fetch(`${backend}/addClass?token=${token}&name=${addClassName}`)
+        const responseClassID = await fetch(`${backend}/getLastClassID?token=${token}`)
         const tempClassID = await responseClassID.json();
         const addClassID = tempClassID.data[0].CLASSID;
         for (const r of selectedRowsL){
-            await fetch(`${backend}/addClass/Lessons?lessonid=${r.LESSONID}&classid=${addClassID}`)
+            await fetch(`${backend}/addClass/Lessons?token=${token}&lessonid=${r.LESSONID}&classid=${addClassID}`)
         }
         window.location.reload(false);
     }
@@ -113,6 +114,7 @@ const EditClasses = () => {
                             contextActions={contextActionsL}
                             onSelectedRowsChange={handleRowSelectedL}
                             clearSelectedRows={toggleClearedL}
+                            selectableRowsHighlight={true}
                         /><br/>
                         <div className="d-flex justify-content-center">
                             <button type="button" onClick={send} className="btn btn-secondary">Sınıfı Ekle</button>
@@ -131,6 +133,7 @@ const EditClasses = () => {
                         contextActions={contextActions}
                         onSelectedRowsChange={handleRowSelected}
                         clearSelectedRows={toggleCleared}
+                        selectableRowsHighlight={true}
                     />
                 </div>
             </div>

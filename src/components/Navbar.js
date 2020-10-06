@@ -2,7 +2,7 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import './Navbar.css'
 
-const Navbar = () => {
+const Navbar = (props) => {
     let location = useLocation().pathname;
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-orange">
@@ -54,6 +54,9 @@ const Navbar = () => {
                     </li>
                 </ul>
             </div>
+            <button type="button" className="btn btn-danger" onClick={() => {localStorage.clear();window.location.reload(false);}}>
+                Hesabı Kapat
+            </button>
         </nav>
     )
 }

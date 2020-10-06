@@ -3,7 +3,9 @@ import DataTable from 'react-data-table-component';
 
 const backend = "http://localhost:2000"
 
+
 const EditLessons = () => {
+    const token = localStorage.getItem('token')
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleCleared, setToggleCleared] = useState(false);
@@ -31,7 +33,7 @@ const EditLessons = () => {
         getLessons()
     },[])
     const getLessons = async () => {
-        const response = await fetch(`${backend}/getLessons`)
+        const response = await fetch(`${backend}/getLessons?token=${token}`)
         const temp = await response.json()
         setLessons(temp.data)
     }
@@ -45,15 +47,15 @@ const EditLessons = () => {
         console.log(addLessonName)
     }
     const send = async () => {
-        const answer = await fetch(`${backend}/addLesson?name=${addLessonName}`)
+        const answer = await fetch(`${backend}/addLesson?token=${token}&name=${addLessonName}`)
         console.log(answer)
     }
     const del = async (id) => {
-        const answer = await fetch(`${backend}/deleteLesson?id=${id}`)
+        const answer = await fetch(`${backend}/deleteLesson?token=${token}&id=${id}`)
         console.log(answer)
     }
     return (
-        <div className="container-fluid">
+        <div className="container-fluid">{console.log(token)}
             <div className="row">
                 <div className="col-md-4 ">
                     <form className="form-group" onSubmit={send}>
@@ -76,6 +78,7 @@ const EditLessons = () => {
                     contextActions={contextActions}
                     onSelectedRowsChange={handleRowSelected}
                     clearSelectedRows={toggleCleared}
+                    selectableRowsHighlight={true}
                 />
                 </div>
             </div>

@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 
 const backend = "http://localhost:2000"
 
-
 const ReportTeacher = () => {
+  const token = localStorage.getItem('token')
+
   const [teachers, setTeachers] = useState([])
   const [getTeacherID, setGetTeacherID] = useState("")
   const [crossVN, setCrossVN] = useState("hidden")
@@ -14,10 +15,10 @@ const ReportTeacher = () => {
 
   const send = async () => {
     if (getTeacherID !== ""){
-      const responseTeacher = await fetch(`${backend}/getTeacher?id=${getTeacherID}`)
+      const responseTeacher = await fetch(`${backend}/getTeacher?token=${token}&id=${getTeacherID}`)
       const tempteacher  = await responseTeacher.json();
       setTeacher(tempteacher.data)
-      const responseReport = await fetch(`${backend}/getTeacher4Report?teacherid=${getTeacherID}`)
+      const responseReport = await fetch(`${backend}/getTeacher4Report?token=${token}&teacherid=${getTeacherID}`)
       const tempReport  = await responseReport.json();
       setReport(tempReport.data)
       await setCrossVN("visible")
@@ -30,7 +31,7 @@ const ReportTeacher = () => {
   }, [])
 
   const getselections = async() => {
-    const responseTeachers = await fetch(`${backend}/getTeachers`)
+    const responseTeachers = await fetch(`${backend}/getTeachers?token=${token}`)
     const tempteachers  = await responseTeachers.json();
     setTeachers(tempteachers.data)
   }

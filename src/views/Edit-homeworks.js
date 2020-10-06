@@ -3,8 +3,8 @@ import DataTable from 'react-data-table-component';
 
 const backend = "http://localhost:2000"
 
-
 const EditHomeworks = () => {
+    const token = localStorage.getItem('token')
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleCleared, setToggleCleared] = useState(false);
@@ -26,7 +26,7 @@ const EditHomeworks = () => {
     }, [data, selectedRows, toggleCleared]);
 
     const del = async (id) => {
-        const answer = await fetch(`${backend}/deleteHomework?id=${id}`)
+        const answer = await fetch(`${backend}/deleteHomework?token=${token}&id=${id}`)
     }
 
 
@@ -56,9 +56,9 @@ const EditHomeworks = () => {
     },[])
 
     const getSelections = async () => {
-        const responseTeachers = await fetch(`${backend}/getTeachers`)
-        const responseClasses = await fetch(`${backend}/getClasses`)
-        const responseHomeworks = await fetch(`${backend}/getHomeworks`)
+        const responseTeachers = await fetch(`${backend}/getTeachers?token=${token}`)
+        const responseClasses = await fetch(`${backend}/getClasses?token=${token}`)
+        const responseHomeworks = await fetch(`${backend}/getHomeworks?token=${token}`)
         const tempTeachers = await responseTeachers.json();
         const tempClasses  = await responseClasses.json();
         const tempHomeworks = await responseHomeworks.json();
@@ -106,12 +106,12 @@ const EditHomeworks = () => {
     ];
 
     const send = async () => {
-        await fetch(`${backend}/addHomework?name=${hwName}&teacherid=${addTeacher}&deadline=${date}`)
-        const responseHWID = await fetch(`${backend}/getLastHWID`)
+        await fetch(`${backend}/addHomework?token=${token}&name=${hwName}&teacherid=${addTeacher}&deadline=${date}`)
+        const responseHWID = await fetch(`${backend}/getLastHWID?token=${token}`)
         const tempHWID = await responseHWID.json();
         const addHWID = tempHWID.data[0].HOMEWORKID;
         for (const r of selectedRowsL){
-            await fetch(`${backend}/addHomework/Classes?homeworkid=${addHWID}&classid=${r.CLASSID}`)
+            await fetch(`${backend}/addHomework/Classes?token=${token}&homeworkid=${addHWID}&classid=${r.CLASSID}`)
         }
         window.location.reload(false);
     }
@@ -135,6 +135,7 @@ const EditHomeworks = () => {
                             contextActions={contextActionsL}
                             onSelectedRowsChange={handleRowSelectedL}
                             clearSelectedRows={toggleClearedL}
+                            selectableRowsHighlight={true}
                         /><br/>
                         <label htmlFor="usrTeacher">Ödevi Veren Öğretmen:</label>
                         <select className="form-control" id="usrTeacher" value={addTeacher} onChange={(e) => setAddTeacher(parseInt(e.target.value))}>
@@ -166,6 +167,7 @@ const EditHomeworks = () => {
                         contextActions={contextActions}
                         onSelectedRowsChange={handleRowSelected}
                         clearSelectedRows={toggleCleared}
+                        selectableRowsHighlight={true}
                     />
                 </div>
             </div>

@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 
 const backend = "http://localhost:2000"
 
-
 const ReportStudent = () => {
+  const token = localStorage.getItem('token')
 
   const [schoolNo, setSchoolNo] = useState('')
   const [getStudentID, setGetStudentID] = useState('')
@@ -22,7 +22,7 @@ const ReportStudent = () => {
     setSchoolNo(e.target.value)
   }
   const send = async () => {
-    const responseStudentID = await fetch(`${backend}/getStudentID?id=${schoolNo}`)
+    const responseStudentID = await fetch(`${backend}/getStudentID?token=${token}&id=${schoolNo}`)
     const tempStudentID  = await responseStudentID.json();
     if(tempStudentID.data.length !== 0){
       setGetStudentID(tempStudentID.data[0].STUDENTID)
@@ -40,33 +40,33 @@ const ReportStudent = () => {
 
   const getReport = async() => {
     if(getStudentID !== ''){
-      const responseStudent = await fetch(`${backend}/getStudent4Report?studentid=${getStudentID}`)
+      const responseStudent = await fetch(`${backend}/getStudent4Report?token=${token}&studentid=${getStudentID}`)
       const tempStudent  = await responseStudent.json();
       setStudent(tempStudent.data)
-      const responseTH = await fetch(`${backend}/getStudent4ReportProp1?studentid=${getStudentID}`)
+      const responseTH = await fetch(`${backend}/getStudent4ReportProp1?token=${token}&studentid=${getStudentID}`)
       const tempTH  = await responseTH.json();
       setTrueHomework(tempTH.data)
-      const responseFH = await fetch(`${backend}/getStudent4ReportProp2?studentid=${getStudentID}`)
+      const responseFH = await fetch(`${backend}/getStudent4ReportProp2?token=${token}&studentid=${getStudentID}`)
       const tempFH  = await responseFH.json();
       setFalseHomework(tempFH.data)
-      const responseTE = await fetch(`${backend}/getStudent4ReportProp3?studentid=${getStudentID}`)
+      const responseTE = await fetch(`${backend}/getStudent4ReportProp3?token=${token}&studentid=${getStudentID}`)
       const tempTE  = await responseTE.json();
       setTrueEtude(tempTE.data)
-      const responseFE = await fetch(`${backend}/getStudent4ReportProp4?studentid=${getStudentID}`)
+      const responseFE = await fetch(`${backend}/getStudent4ReportProp4?token=${token}&studentid=${getStudentID}`)
       const tempFE = await responseFE.json();
       setFalseEtude(tempFE.data)
-      const responseAVGE = await fetch(`${backend}/avgEtude?studentid=${getStudentID}`)
+      const responseAVGE = await fetch(`${backend}/avgEtude?token=${token}&studentid=${getStudentID}`)
       const tempAVGE = await responseAVGE.json();
-      setAvgEtude((tempAVGE.data[0][0].ETUTSONUC * 100))
-      const responseAVGH = await fetch(`${backend}/avgHomework?studentid=${getStudentID}`)
+      setAvgEtude((tempAVGE.data[0].ETUTSONUC * 100))
+      const responseAVGH = await fetch(`${backend}/avgHomework?token=${token}&studentid=${getStudentID}`)
       const tempAVGH = await responseAVGH.json();
-      setAvgHomework((tempAVGH.data[0][0].HOMEWORKSONUC * 100))
+      setAvgHomework((tempAVGH.data[0].HOMEWORKSONUC * 100))
     }
   }
 
 
   return(
-    <div className="container-fluid">{console.log(avgEtude, avgHomework, getStudentID)}
+    <div className="container-fluid">
       <div className="row">
         <div className="col-md-4 ">
             <form className="form-group">

@@ -3,8 +3,9 @@ import DataTable from 'react-data-table-component';
 
 const backend = "http://localhost:2000"
 
-
 const UpdateHomework = () => {
+    const token = localStorage.getItem('token')
+
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleCleared, setToggleCleared] = useState(false);
     const [data, setData] = useState([]);
@@ -29,7 +30,7 @@ const UpdateHomework = () => {
         if(row.STATE !== "Yapıldı"){
             NextState = "Yapıldı";    
         }
-        const answer = await fetch(`${backend}/updateHomework?homeworkid=${row.HOMEWORKID}&studentid=${row.STUDENTID}&nextState=${NextState}`)
+        const answer = await fetch(`${backend}/updateHomework?token=${token}&homeworkid=${row.HOMEWORKID}&studentid=${row.STUDENTID}&nextState=${NextState}`)
         console.log(answer)
     }
 
@@ -41,13 +42,13 @@ const UpdateHomework = () => {
     },[])
 
     const getSelections = async () => {
-        const responseHomeworks = await fetch(`${backend}/getHomeworks`)
+        const responseHomeworks = await fetch(`${backend}/getHomeworks?token=${token}`)
         const tempHomeworks = await responseHomeworks.json();
         setHomeworks(tempHomeworks.data)
     }
 
     const send = async () => {
-        const responseUHomeworks = await fetch(`${backend}/updateHomeworks?id=${getHomework}`)
+        const responseUHomeworks = await fetch(`${backend}/updateHomeworks?token=${token}&id=${getHomework}`)
         const tempUHomeworks = await responseUHomeworks.json();
         setData(tempUHomeworks.data)
     }

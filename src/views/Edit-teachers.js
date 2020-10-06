@@ -3,8 +3,8 @@ import DataTable from 'react-data-table-component';
 
 const backend = "http://localhost:2000"
 
-
 const EditTeachers = () => {
+    const token = localStorage.getItem('token')
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleCleared, setToggleCleared] = useState(false);
@@ -40,7 +40,7 @@ const EditTeachers = () => {
     }
 
     const send = async () => {
-        const answer = await fetch(`${backend}/addTeacher?name=${addName}&branch=${addBranch}&tel=${addTel}`)
+        const answer = await fetch(`${backend}/addTeacher?token=${token}&name=${addName}&branch=${addBranch}&tel=${addTel}`)
         setDebug(answer)
     }
 
@@ -49,8 +49,8 @@ const EditTeachers = () => {
     },[])
 
     const getSelections = async () => {
-        const responseLessons = await fetch(`${backend}/getLessons`)
-        const responseTeachers = await fetch(`${backend}/getTeachers`)
+        const responseLessons = await fetch(`${backend}/getLessons?token=${token}`)
+        const responseTeachers = await fetch(`${backend}/getTeachers?token=${token}`)
         const tempLessons = await responseLessons.json();
         const tempTeachers = await responseTeachers.json();
         setLessons(tempLessons.data)
@@ -83,7 +83,7 @@ const EditTeachers = () => {
       
 
     const del = async (id) => {
-        const answer = await fetch(`${backend}/deleteTeacher?id=${id}`)
+        const answer = await fetch(`${backend}/deleteTeacher?token=${token}&id=${id}`)
         console.log(answer)
     }
     return (
@@ -122,6 +122,7 @@ const EditTeachers = () => {
                         onSelectedRowsChange={handleRowSelected}
                         clearSelectedRows={toggleCleared}
                         highlightOnHover={true}
+                        selectableRowsHighlight={true}
                     />
                 </div>
             </div>

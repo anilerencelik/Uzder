@@ -3,8 +3,9 @@ import DataTable from 'react-data-table-component';
 
 const backend = "http://localhost:2000"
 
-
 const UpdateEtudes = () => {
+    const token = localStorage.getItem('token')
+
     
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleCleared, setToggleCleared] = useState(false);
@@ -18,7 +19,7 @@ const UpdateEtudes = () => {
           if (window.confirm(`Are you sure you want to delete:\r ${selectedRows.map(r => r.STUDENTNAME)}?`)) {
             setToggleCleared(!toggleCleared);
             selectedRows.forEach(r => {del(r)})
-            //window.location.reload(false);
+            window.location.reload(false);
           }
         };
     
@@ -30,7 +31,7 @@ const UpdateEtudes = () => {
         if(row.STATE !== "Yapıldı"){
             NextState = "Yapıldı";    
         }
-        const answer = await fetch(`${backend}/updateEtude?etudeid=${row.ETUDEID}&nextState=${NextState}`)
+        const answer = await fetch(`${backend}/updateEtude?token=${token}&etudeid=${row.ETUDEID}&nextState=${NextState}`)
         console.log(answer)
     }
 
@@ -46,14 +47,14 @@ const UpdateEtudes = () => {
     },[])
 
     const getSelections = async () => {
-        const responseTeachers = await fetch(`${backend}/getTeachers`)
+        const responseTeachers = await fetch(`${backend}/getTeachers?token=${token}`)
         const tempTeachers = await responseTeachers.json();
         setTeachers(tempTeachers.data)
     }
 
     const send = async () => {
         console.log(getTeacher, date)
-        const responseUEtudes = await fetch(`${backend}/updateEtudes?teacherid=${getTeacher}&date=${date}`)
+        const responseUEtudes = await fetch(`${backend}/updateEtudes?token=${token}&teacherid=${getTeacher}&date=${date}`)
         const tempUEtudes = await responseUEtudes.json();
         setData(tempUEtudes.data)
     }

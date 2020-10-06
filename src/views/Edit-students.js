@@ -3,8 +3,8 @@ import DataTable from 'react-data-table-component';
 
 const backend = "http://localhost:2000"
 
-
 const EditStudents = () => {
+    const token = localStorage.getItem('token')
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleCleared, setToggleCleared] = useState(false);
@@ -43,19 +43,19 @@ const EditStudents = () => {
         setAddTel(e.target.value)
     }
     const send = async () => {
-        const answer = await fetch(`${backend}/addStudent?name=${addName}&no=${addNo}&tel=${addTel}&classid=${addClass}`)
+        const answer = await fetch(`${backend}/addStudent?token=${token}&name=${addName}&no=${addNo}&tel=${addTel}&classid=${addClass}`)
         console.log(answer)
     }
     const del = async (id) => {
-        const answer = await fetch(`${backend}/deleteStudent?id=${id}`)
+        const answer = await fetch(`${backend}/deleteStudent?token=${token}&id=${id}`)
         console.log(answer)
     }
     useEffect( () => {
         getSelections()
     },[])
     const getSelections= async () => {
-        const responseClasses = await fetch(`${backend}/getClasses`)
-        const responseStudents = await fetch(`${backend}/getStudentsWithClassname`)
+        const responseClasses = await fetch(`${backend}/getClasses?token=${token}`)
+        const responseStudents = await fetch(`${backend}/getStudentsWithClassname?token=${token}`)
         const tempClasses = await responseClasses.json();
         const tempStudents  = await responseStudents.json();
         setClasses(tempClasses.data)
@@ -94,14 +94,14 @@ const EditStudents = () => {
                 <div className="col-md-4 ">
                     <form className="form-group" onSubmit={send}>
                         <label htmlFor="usrName">Öğrencinin Adı:</label>
-                        <input type="text" className="form-control" id="usrName" onChange={updateName} value={addName}/><br/>                
+                        <input type="text" className="form-control" id="usrName" onChange={updateName} value={addName} placeholder="Öğrenci Adı"/><br/>                
                         <label htmlFor="usrClass">Öğrencinin Sınıfı:</label>
                         <select className="form-control" id="usrClass" value={addClass} onChange={(e) => setAddClass(e.target.value)}>
                         <option selected value="">Sınıfı işaretleyin...</option>
                             {selectBox}
                         </select><br/>
                         <label htmlFor="usrNo">Öğrenci No:</label>
-                        <input type="text" className="form-control" onChange={updateNo} value={addNo}/><br/>   
+                        <input type="text" className="form-control" onChange={updateNo} value={addNo} placeholder="Öğrenci Okul No"/><br/>   
                         <label htmlFor="usrParentTel">Velinin Telefon Numarası:</label>
                         <div className="input-group">
                             <div className="input-group-prepend">
@@ -126,6 +126,7 @@ const EditStudents = () => {
                         onSelectedRowsChange={handleRowSelected}
                         clearSelectedRows={toggleCleared}
                         highlightOnHover={true}
+                        selectableRowsHighlight={true}
                     />
                 </div>
             </div>

@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 
 const backend = "http://localhost:2000"
 
-
 const ReportHomework = () => {
+  const token = localStorage.getItem('token')
+
   const [homeworks, setHomeworks] = useState([])
   const [getHomeworkID, setGetHomeworkID] = useState("")
   const [homework, setHomework] = useState([])
@@ -14,10 +15,10 @@ const ReportHomework = () => {
 
   const send = async () => {
     if (getHomeworkID !== ""){
-      const responseHomework = await fetch(`${backend}/getHomework?id=${getHomeworkID}`)
+      const responseHomework = await fetch(`${backend}/getHomework?token=${token}&id=${getHomeworkID}`)
       const tempHomework  = await responseHomework.json();
       setHomework(tempHomework.data)
-      const responseReport = await fetch(`${backend}/getHomework4Report?homeworkid=${getHomeworkID}`)
+      const responseReport = await fetch(`${backend}/getHomework4Report?token=${token}&homeworkid=${getHomeworkID}`)
       const tempReport  = await responseReport.json();
       setReport(tempReport.data)
       await setCrossVN("visible")
@@ -30,7 +31,7 @@ const ReportHomework = () => {
   }, [])
 
   const getselections = async() => {
-    const responseHomeworks = await fetch(`${backend}/getHomeworks`)
+    const responseHomeworks = await fetch(`${backend}/getHomeworks?token=${token}`)
     const tempHomeworks  = await responseHomeworks.json();
     setHomeworks(tempHomeworks.data)
   }

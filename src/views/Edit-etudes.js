@@ -4,6 +4,7 @@ import DataTable from 'react-data-table-component';
 const backend = "http://localhost:2000"
 
 const EditEtudes = () => {
+    const token = localStorage.getItem('token')
 
     const [selectedRows, setSelectedRows] = useState([]);
     const [toggleCleared, setToggleCleared] = useState(false);
@@ -25,7 +26,7 @@ const EditEtudes = () => {
     }, [data, selectedRows, toggleCleared]);
 
     const del = async (id) => {
-        const answer = await fetch(`${backend}/deleteEtude?id=${id}`)
+        const answer = await fetch(`${backend}/deleteEtude?token=${token}&id=${id}`)
         console.log(answer)
     }
 
@@ -46,7 +47,7 @@ const EditEtudes = () => {
     }
 
     const send = async () => {
-        const answer = await fetch(`${backend}/addEtude?teacherid=${addTeacher}&studentid=${addStudent}&date=${time.split('T')[0]}&time=${time.split('T')[1]}`)
+        const answer = await fetch(`${backend}/addEtude?token=${token}&teacherid=${addTeacher}&studentid=${addStudent}&date=${time.split('T')[0]}&time=${time.split('T')[1]}`)
         console.log(answer)
     }
 
@@ -56,9 +57,9 @@ const EditEtudes = () => {
     },[])
 
     const getSelections = async () => {
-        const responseStudents = await fetch(`${backend}/getStudentNames`)
-        const responseTeachers = await fetch(`${backend}/getTeacherNames`)
-        const responseEtudes = await fetch(`${backend}/getEtudes`)
+        const responseStudents = await fetch(`${backend}/getStudentNames?token=${token}`)
+        const responseTeachers = await fetch(`${backend}/getTeacherNames?token=${token}`)
+        const responseEtudes = await fetch(`${backend}/getEtudes?token=${token}`)
         const tempStudents = await responseStudents.json();
         const tempTeachers = await responseTeachers.json();
         const tempEtudes = await responseEtudes.json();
@@ -152,6 +153,7 @@ const EditEtudes = () => {
                         highlightOnHover={true}
                         onSelectedRowsChange={handleRowSelected}
                         clearSelectedRows={toggleCleared}
+                        selectableRowsHighlight={true}
                     />
                 </div>
             </div>

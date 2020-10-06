@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from "react";
+import {AuthContext} from './AuthContext'
+
 import {render} from 'react-dom';
 import './style/index.css';
 import * as serviceWorker from './serviceWorker';
@@ -17,32 +19,38 @@ import EditClasses from './views/Edit-classes';
 import EditHomework from './views/Edit-homeworks';
 import UpdateHomework from './views/Update-homeworks';
 import UpdateEtude from './views/Update-etudes';
+import { isValid } from 'ipaddr.js';
+import Login from './views/Login';
+import {AuthProvider} from './AuthContext'
+import App from "./App";
 
 const Routes = () => {
   return(
-    <Switch>
-      <Route path="/edit-lessons" exact component={EditLessons}/>
-      <Route path="/edit-students" exact component={EditStudent}/>
-      <Route path="/edit-teachers" exact component={EditTeacher}/>
-      <Route path="/edit-etudes" exact component={EditEtude}/>
-      <Route path="/edit-homeworks" exact component={EditHomework}/>
-      <Route path="/edit-classes" exact component={EditClasses}/>
-      <Route path="/edit-students" exact component={EditStudent}/>
-      <Route path="/report-students" exact component={ReportStuent}/>
-      <Route path="/report-teachers" exact component={ReportTeacher}/>
-      <Route path="/report-classes" exact component={ReportClass}/>
-      <Route path="/report-homeworks" exact component={ReportHomework}/>
-      <Route path="/update-etudes" exact component={UpdateEtude}/>
-      <Route path="/update-homeworks" exact component={UpdateHomework}/>
-      <Route path="/" component={Panel}/>
+    <Switch >
+      <Route exact path="/edit-lessons" component={EditLessons}/>
+      <Route exact path="/edit-students" component={EditStudent}/>
+      <Route exact path="/edit-teachers" component={EditTeacher}/>
+      <Route exact path="/edit-etudes" component={EditEtude}/>
+      <Route exact path="/edit-homeworks" component={EditHomework}/>
+      <Route exact path="/edit-classes" component={EditClasses}/>
+      <Route exact path="/edit-students" component={EditStudent}/>
+      <Route exact path="/report-students" component={ReportStuent}/>
+      <Route exact path="/report-teachers" component={ReportTeacher}/>
+      <Route exact path="/report-classes" component={ReportClass}/>
+      <Route exact path="/report-homeworks" component={ReportHomework}/>
+      <Route exact path="/update-etudes" component={UpdateEtude}/>
+      <Route exact path="/update-homeworks" component={UpdateHomework}/>
+      <Route path="/" render={() => <Panel selam={"hi"}/>} />
     </Switch>
   ) 
 }
 
+
 render(
   <BrowserRouter>
-    <Navbar/>
-    <Routes/>
+    <AuthProvider>
+      <App/>
+    </AuthProvider>
   </BrowserRouter>, document.getElementById('root')
 );
 
