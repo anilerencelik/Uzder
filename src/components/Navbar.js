@@ -55,7 +55,7 @@ const Navbar = (props) => {
                 </ul>
             </div>
             <button type="button" className="btn btn-danger" onClick={() => {localStorage.clear();window.location.reload(false);}}>
-                Hesabı Kapat
+                Çıkış Yap
             </button>
         </nav>
     )

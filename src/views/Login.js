@@ -1,5 +1,6 @@
 import React from 'react'
 import './Login.css'
+import backend from '../backend'
 
 class Login extends React.Component  {
 
@@ -36,7 +37,7 @@ class Login extends React.Component  {
     }
 
 
-    const responseLogin = await fetch(`http://localhost:2000/sessions?username=${this.state.username}&password=${this.state.password}`)
+    const responseLogin = await fetch(`${backend}/sessions?username=${this.state.username}&password=${this.state.password}`)
     const tempLogin = await responseLogin.json()
     if(await tempLogin.data[0]) {
       localStorage.setItem('token', tempLogin.data[0].APIKEY)
@@ -44,7 +45,6 @@ class Login extends React.Component  {
         apiToken: tempLogin.data[0],
         isLoggedIn : 1
       })
-      //window.location.reload(false);
     }
       
   }

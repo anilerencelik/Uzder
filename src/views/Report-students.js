@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-
-const backend = "http://localhost:2000"
+import backend from '../backend'
 
 const ReportStudent = () => {
   const token = localStorage.getItem('token')

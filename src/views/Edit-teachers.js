@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import DataTable from 'react-data-table-component';
+import backend from '../backend'
 
-const backend = "http://localhost:2000"
 
 const EditTeachers = () => {
     const token = localStorage.getItem('token')
