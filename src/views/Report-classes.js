@@ -1,39 +1,62 @@
-import React, {useState, useEffect} from 'react';
-import backend from '../backend'
+import React, { useState, useEffect } from 'react'
+import reqConfig from '../utils/request'
+import axios from 'axios';
 
-const ReportClasses = () => {
-  const token = localStorage.getItem('token')
+const ReportClass = () => {
 
   const [classes, setClasses] = useState([])
   const [getClassID, setGetClassID] = useState("")
   const [currClass, setCurrClass] = useState([])
   const [crossVN, setCrossVN] = useState("hidden")
   const [report, setReport] = useState({})
-  var iterate =  0;
 
-  
-  const send = async () => {
-    if (getClassID !== ""){
-      const responseClass = await fetch(`${backend}/getClass?token=${token}&id=${getClassID}`)
-      const tempClass  = await responseClass.json();
-      setCurrClass(tempClass.data)
-      const responseReport = await fetch(`${backend}/getClass4Report?token=${token}&classid=${getClassID}`)
-      const tempReport  = await responseReport.json();
-      setReport(tempReport.data)
-      await setCrossVN("visible")  
-    }
-  } 
-  
   useEffect(() => {
-    getselections()
-    
+    getClasses()
   }, [])
-  
-  const getselections = async() => {
-      const responseClasses = await fetch(`${backend}/getClasses?token=${token}`)
-      const tempClasses = await responseClasses.json();
-      setClasses(tempClasses.data)
+
+  const send = async (e) => {
+    e.preventDefault()
+    const data = {
+      classid: getClassID
+    }
+    axios(reqConfig('reports/class', 'post', data))
+      .then((response) => {
+        var js = JSON.parse(JSON.stringify(response.data))
+        if (js.status) {
+          setOptions(js.data)
+        } else {
+          setCurrClass([])
+          setReport([])
+          setCrossVN("hidden")
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setCrossVN("hidden")
+      });
   }
+
+  const setOptions = (arr) => {
+    setCurrClass(arr[0])
+    setReport(arr.slice(1))
+    setCrossVN("visible")
+  }
+
+  const getClasses = async () => {
+    axios(reqConfig("classes/"))
+      .then((response) => {
+        var js = JSON.parse(JSON.stringify(response.data))
+        if (js.status) {
+          setClasses(js.data)
+        } else {
+          setClasses([])
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
 
   const selectBoxTeachers = classes.map(data => {
     return (
@@ -41,65 +64,57 @@ const ReportClasses = () => {
     )
   })
 
-  const lessons = crossVN ==="visible"? report[5].map(data => {
+  const lessons = crossVN === "visible" ? report[5].map(data => {
     return (
-      <li>{data.LESSONNAME}</li>
+      <li key={data.LESSONNAME}>{data.LESSONNAME}</li>
     )
-  }): 0
-  
-  
-  
-  return(
-    <div className="container-fluid">{console.log(localStorage.getItem("x"))}
+  }) : 0
+
+  return (
+    <div className="container-fluid">
       <div className="row">
         <div className="col-md-4 ">
-            <form className="form-group">
-                <label htmlFor="usrName">Raporu Hazırlanacak Sınıfı Seçiniz:</label>
-                <select className="form-control" id="usrName" value={getClassID} onChange={(e) => setGetClassID(e.target.value)}>
-                <option selected value="">Sınıfı Seçiniz...</option>
-                    {selectBoxTeachers}
-                </select><br/>
-                <div className="d-flex justify-content-center">
-                    <button type="button" onClick={send} className="btn btn-secondary">Raporu Getir</button>
-                </div>
-            </form>
-            <br/>
+          <form className="form-group" onSubmit={send}>
+            <label htmlFor="usrName">Raporu Hazırlanacak Sınıfı Seçiniz:</label>
+            <select className="form-control" id="usrName" value={getClassID} onChange={(e) => setGetClassID(e.target.value)}>
+              <option defaultValue={null}>Sınıfı Seçiniz...</option>
+              {selectBoxTeachers}
+            </select><br />
+            <div className="d-flex justify-content-center">
+              <button type="submit" className="btn btn-secondary">Raporu Getir</button>
+            </div>
+          </form>
+          <br />
         </div>
         <div className="col auto">
-          <div className="card border-secondary mb-3" style={{visibility:crossVN}}>
-          {crossVN==="visible" ? report[5].map(data => {console.log(data.LESSONNAME)}): console.log()}
-            <div className="card-header ">{currClass.map(r => r.CLASSNAME)}</div>
+          <div className="card border-secondary mb-3" style={{ visibility: crossVN }}>
+            <div className="card-header " style={{ textAlign: "center" }}>{currClass.map(r => r.CLASSNAME)}</div>
             <div className="card-body text-secondary">
-              <h5 className="card-title">Sınıfın Raporu:</h5>            
+              <h5 className="card-title">Sınıfın Raporu:</h5>
               <ul className="list-group">
                 <li className="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
                   Sınıfa Verilen Ödev Sayısı
-                  <span className="badge badge-info badge-pill">{(crossVN==="visible") ? report[0][0].HWNUMBER : 0}</span>
+                  <span className="badge badge-info badge-pill">{(crossVN === "visible") ? report[0][0].HWNUMBER : 0}</span>
                 </li>
                 <li className="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
                   Sınıfa Verilen Birebir Sayısı
-                  <span className="badge badge-success badge-pill">{(crossVN==="visible") ? report[4][0].ALLETUDERECORD : 0}</span>
+                  <span className="badge badge-success badge-pill">{(crossVN === "visible") ? report[4][0].ALLETUDERECORD : 0}</span>
                 </li>
-                <br/>
+                <br />
                 <p>Sınıfın Sorumlu Olduğu Dersler:</p>
                 <ul >{lessons}</ul>
-                                
               </ul>
-              <br/>
-                <div className="row justify-content-around" >
-                  <h5 className="col-auto" >Ödevlerin Yapılma Yüzdesi: %{(crossVN==="visible") ? ((report[1][0].TRUEHW / report[2][0].ALLHWRECORD)*100).toFixed(2)  : 0}</h5>
-                  <h5 className="col-auto" >Birebire Katılma Yüzdesi: %{(crossVN==="visible") ? ((report[3][0].TRUEETUDE / report[4][0].ALLETUDERECORD)*100).toFixed(2)  : 0}</h5>
-                </div>
-
-
+              <br />
+              <div className="row justify-content-around" >
+                <h5 className="col-auto" >Ödevlerin Yapılma Yüzdesi: %{(crossVN === "visible") ? ((report[1][0].TRUEHW / report[2][0].ALLHWRECORD) * 100).toFixed(2) : 0}</h5>
+                <h5 className="col-auto" >Birebire Katılma Yüzdesi: %{(crossVN === "visible") ? ((report[3][0].TRUEETUDE / report[4][0].ALLETUDERECORD) * 100).toFixed(2) : 0}</h5>
+              </div>
             </div>
           </div>
-
-
-
         </div>
       </div>
-    </div>)
+    </div>
+  )
 }
 
-export default ReportClasses;
+export default ReportClass

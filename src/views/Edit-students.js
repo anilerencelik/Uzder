@@ -1,30 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import DataTable from 'react-data-table-component';
-import backend from '../backend'
+import React, { useState, useEffect } from 'react'
+import Table from "../components/Table.component";
+import reqConfig from '../utils/request'
+import axios from 'axios';
 
 const EditStudents = () => {
-    const token = localStorage.getItem('token')
-
-    const [selectedRows, setSelectedRows] = useState([]);
-    const [toggleCleared, setToggleCleared] = useState(false);
-    const [data, setData] = useState([]);
-    const handleRowSelected = React.useCallback(state => {
-    setSelectedRows(state.selectedRows);
-    }, []);
-
-    const contextActions = React.useMemo(() => {
-        const handleDelete = () => {
-          if (window.confirm(`Are you sure you want to delete:\r ${selectedRows.map(r => r.STUDENTNAME)}?`)) {
-            setToggleCleared(!toggleCleared);
-            selectedRows.forEach(r => {del(r.STUDENTID)})
-            window.location.reload(false);
-          }
-        };
-    
-        return <button type={"button"} className="btn btn-danger" key="delete" onClick={handleDelete}>Kaldır</button>;
-      }, [data, selectedRows, toggleCleared]);
-
-
 
     const [students, setStudents] = useState([])
     const [classes, setClasses] = useState([])
@@ -32,39 +11,9 @@ const EditStudents = () => {
     const [addClass, setAddClass] = useState()
     const [addNo, setAddNo] = useState([])
     const [addTel, setAddTel] = useState([])
-    const updateName = e => {
-        setAddName(e.target.value)
-    }
-    const updateNo = e => {
-        setAddNo(e.target.value)
-    }
-    const updateTel = e => {
-        setAddTel(e.target.value)
-    }
-    const send = async () => {
-        const answer = await fetch(`${backend}/addStudent?token=${token}&name=${addName}&no=${addNo}&tel=${addTel}&classid=${addClass}`)
-        console.log(answer)
-    }
-    const del = async (id) => {
-        const answer = await fetch(`${backend}/deleteStudent?token=${token}&id=${id}`)
-        console.log(answer)
-    }
-    useEffect( () => {
-        getSelections()
-    },[])
-    const getSelections= async () => {
-        const responseClasses = await fetch(`${backend}/getClasses?token=${token}`)
-        const responseStudents = await fetch(`${backend}/getStudentsWithClassname?token=${token}`)
-        const tempClasses = await responseClasses.json();
-        const tempStudents  = await responseStudents.json();
-        setClasses(tempClasses.data)
-        setStudents(tempStudents.data)
-    }    
-    const selectBox = classes.map(data => {
-        return (
-          <option value={data.CLASSID} key={data.CLASSID}>{data.CLASSNAME}</option>
-        )
-    })
+    const [completed, setCompleted] = useState("0")
+    const [error, setError] = useState('')
+
     const columns = [
         {
             name: 'Öğrenci Adı',
@@ -85,53 +34,159 @@ const EditStudents = () => {
             name: 'Veli Tel',
             selector: 'PARENTTELNO',
             sortable: true,
-        }]
+        }
+    ]
 
-    return(
+
+    useEffect(() => {
+        getSelections()
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
+
+    const getSelections = () => {
+        axios(reqConfig('students/'))
+            .then((response) => {
+                var js = JSON.parse(JSON.stringify(response.data))
+                if (js.status) {
+                    console.log(js.data)
+                    setStudents(js.data);
+                    setError()
+                } else {
+                    setStudents([])
+                    setError(js.message)
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                setCompleted(0)
+            });
+
+        axios(reqConfig('classes/'))
+            .then((response2) => {
+                var js2 = JSON.parse(JSON.stringify(response2.data))
+                if (js2.status) {
+                    setClasses(js2.data);
+                    setError()
+                } else {
+                    setClasses([])
+                    setError()
+                }
+                setCompleted(1)
+            })
+            .catch((error2) => {
+                console.log(error2);
+                setCompleted(0)
+            })
+
+        
+
+    }
+    const updateName = e => {
+        setAddName(e.target.value)
+    }
+    const updateNo = e => {
+        setAddNo(e.target.value)
+    }
+    const updateTel = e => {
+        setAddTel(e.target.value)
+    }
+    const selectBox = classes.map(data => {
+        return (
+            <option value={data.CLASSID} key={data.CLASSID}>{data.CLASSNAME}</option>
+        )
+    })
+
+    const send = async (e) => {
+        e.preventDefault()
+        setCompleted(0)
+        const data = {
+            name: addName,
+            no: addNo,
+            tel: addTel,
+            classid: addClass
+        }
+        axios(reqConfig('students/', 'post', data))
+            .then((response) => {
+                var js = JSON.parse(JSON.stringify(response.data))
+                if (js.status) {
+                    setError()
+                } else {
+                    setError(js.message.sqlMessage)
+                    console.log(js)
+                }
+                getSelections()
+            })
+            .catch((error) => {
+                console.log(error);
+                getSelections()
+            });
+        setAddName('')
+        setAddNo('')
+        setAddTel('')
+
+    }
+
+    const del = async (rows) => {
+        setCompleted(0)
+        rows.forEach(async (row) => {
+            axios(reqConfig(`students/${row.STUDENTID}`, 'delete'))
+                .then((response) => {
+                    var js = JSON.parse(JSON.stringify(response.data))
+                    if (js.status) {
+                        setError()
+                    } else {
+                        setStudents([])
+                        setError(js.message)
+                    }
+                    getSelections()
+                })
+                .catch((error) => {
+                    console.log(error);
+                    getSelections()
+                });
+        })
+    }
+
+    return (
         <div className="container-fluid">
             <div className="row">
                 <div className="col-md-4 ">
                     <form className="form-group" onSubmit={send}>
                         <label htmlFor="usrName">Öğrencinin Adı:</label>
-                        <input type="text" className="form-control" id="usrName" onChange={updateName} value={addName} placeholder="Öğrenci Adı"/><br/>                
+                        <input type="text" className="form-control" id="usrName" onChange={updateName} value={addName} placeholder="Öğrenci Adı" /><br />
                         <label htmlFor="usrClass">Öğrencinin Sınıfı:</label>
                         <select className="form-control" id="usrClass" value={addClass} onChange={(e) => setAddClass(e.target.value)}>
-                        <option selected value="">Sınıfı işaretleyin...</option>
+                            <option defaultValue={null}>Sınıfı işaretleyin...</option>
                             {selectBox}
-                        </select><br/>
+                        </select><br />
                         <label htmlFor="usrNo">Öğrenci No:</label>
-                        <input type="text" className="form-control" onChange={updateNo} value={addNo} placeholder="Öğrenci Okul No"/><br/>   
+                        <input type="text" className="form-control" onChange={updateNo} value={addNo} placeholder="Öğrenci Okul No" /><br />
                         <label htmlFor="usrParentTel">Velinin Telefon Numarası:</label>
                         <div className="input-group">
                             <div className="input-group-prepend">
-                            <span className="input-group-text" id="inputGroupPrepend3">+90</span>
+                                <span className="input-group-text" id="inputGroupPrepend3">+90</span>
                             </div>
-                            <input type="text" className="form-control" onChange={updateTel} value={addTel} id="usrParentTel" placeholder="5XXXXXXXXX" aria-describedby="inputGroupPrepend3"/>
-                        </div><br/>
+                            <input type="text" className="form-control" onChange={updateTel} value={addTel} id="usrParentTel" placeholder="5XXXXXXXXX" aria-describedby="inputGroupPrepend3" />
+                        </div><br />
                         <div className="d-flex justify-content-center">
                             <button type="submit" className="btn btn-secondary">Öğrenci Ekle</button>
                         </div>
                     </form>
-                    <br/>
+                    <br />
                 </div>
                 <div className="col auto">
-                    <DataTable
-                        title="Öğrenci Listesi"
-                        columns={columns}
-                        data={students}
-                        selectableRows
-                        noHeader={false}
-                        contextActions={contextActions}
-                        onSelectedRowsChange={handleRowSelected}
-                        clearSelectedRows={toggleCleared}
-                        highlightOnHover={true}
-                        selectableRowsHighlight={true}
-                    />
+                    {error !== '' ? error : ''}
+                    {completed === 1  ?
+                        <Table
+                            columns={columns}
+                            allData={students}
+                            delFunction={del}
+                            title="Öğrenci Listesi"
+                            getFunction={getSelections}
+                        /> : <h6>Loading</h6>}
                 </div>
             </div>
-        </div>    
-        )
-
+        </div>
+    )
 }
 
-export default EditStudents;
+export default EditStudents

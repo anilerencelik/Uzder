@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React from 'react';
 import DataTable from 'react-data-table-component';
 
 const dataDef = [{ id: 1, title: 'Conan the Barbarian', summary: 'Orphaned boy Conan is enslaved after his village is destroyed...',  year: '1982' }];
@@ -18,15 +18,7 @@ const columnsDef = [
 ];
 
 
-const Table = ({scrollHeight="25vh", dataparam=dataDef, columns=columnsDef, noTableHead=true, fixedHeader=true, test}) => {
-
-  const [selectedRows, setSelectedRows] = useState([])
-  const [data, setData] = useState(dataparam)
-
-  const handleRowSelected = useCallback((state) => {
-    setSelectedRows(state.selectedRows)
-    test(state.selectedRows)
-  }, []);
+const Table = ({scrollHeight="25vh", dataparam=dataDef, columns=columnsDef, noTableHead=true, fixedHeader=true}) => {
 
 
 
@@ -39,11 +31,6 @@ const Table = ({scrollHeight="25vh", dataparam=dataDef, columns=columnsDef, noTa
           noTableHead={noTableHead}
           highlightOnHover={true}
           fixedHeaderScrollHeight={scrollHeight}
-          selectableRows
-          onSelectedRowsChange={test}
-          highlightOnHover={true}
-          selectableRowsHighlight={true}
-          
         />
         )
 }
